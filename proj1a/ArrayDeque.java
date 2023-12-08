@@ -5,7 +5,6 @@ public class ArrayDeque<T> {
     public int capacity;
     private int prev;
     private int next;
-    private boolean isFull;
 
     public ArrayDeque() {
         capacity = 2;
@@ -13,7 +12,6 @@ public class ArrayDeque<T> {
         size = 0;
         prev = 1;
         next = 0;
-        isFull = false;
     }
 
     private void resize(int cap) {
@@ -21,7 +19,6 @@ public class ArrayDeque<T> {
         for (int i = 0; i < size; i++) {
             temp[i] = this.get(i);
         }
-        isFull = false;
         prev = cap - 1;
         next = size;
         items = temp;
@@ -29,27 +26,21 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T i) {
-        if (isFull) {
-            resize(capacity * 2);
-        }
-        if (prev == next) {
-            isFull = true;
+        if (isFull()) {
+            resize(size * 2);
         }
         size++;
         items[prev] = i;
-        prev--;
+        prev = (prev - 1) % capacity;
     }
 
     public void addLast(T i) {
-        if (isFull) {
-            resize(capacity * 2);
-        }
-        if (prev == next) {
-            isFull = true;
+        if (isFull()) {
+            resize(size * 2);
         }
         size++;
         items[next] = i;
-        next++;
+        next = (next + 1) % capacity;
     }
 
     public T removeFirst() {
@@ -60,8 +51,8 @@ public class ArrayDeque<T> {
         prev = (prev + 1) % capacity;
         T first = items[prev];
         items[prev] = null;
-        if (size / capacity < 0.2) {
-            resize(capacity / 4 + 2);
+        if ((double) size / capacity < 0.2) {
+            resize(size * 2);
         }
         return first;
     }
@@ -74,14 +65,18 @@ public class ArrayDeque<T> {
         next = (next - 1) % capacity;
         T last = items[next];
         items[next] = null;
-        if (size / capacity < 0.2) {
-            resize(capacity / 4 + 2);
+        if ((double) size / capacity < 0.2) {
+            resize(size * 2);
         }
         return last;
     }
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    private boolean isFull() {
+        return size == capacity;
     }
 
     public int size() {
