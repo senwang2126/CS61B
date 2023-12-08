@@ -89,9 +89,32 @@ public class LinkedListDequeTest {
 		printTestStatus(passed);
 	}
 
+	public static void getTest() {
+		System.out.println("Running get test.");
+		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
+
+		lld1.addFirst("front");
+		lld1.addLast("middle");
+		lld1.addLast("last");
+		System.out.println(lld1.get(0));
+		System.out.println(lld1.getRecursive(0));
+		System.out.println(lld1.get(1));
+		System.out.println(lld1.getRecursive(1));
+		System.out.println(lld1.get(2));
+		System.out.println(lld1.getRecursive(2));
+		lld1.removeFirst();
+		System.out.println(lld1.get(0));
+		System.out.println(lld1.getRecursive(0));
+		System.out.println(lld1.get(1));
+		System.out.println(lld1.getRecursive(1));
+
+		lld1.printDeque();
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		getTest();
 	}
 }

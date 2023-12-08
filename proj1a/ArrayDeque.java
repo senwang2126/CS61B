@@ -2,7 +2,7 @@ public class ArrayDeque<T> {
 
     private T[] items;
     private int size;
-    private int capacity;
+    public int capacity;
     private int prev;
     private int next;
     private boolean isFull;
@@ -18,11 +18,8 @@ public class ArrayDeque<T> {
 
     private void resize(int cap) {
         T[] temp = (T[]) new Object[cap];
-        int i = 0;
-        while ((prev % cap) != next) {
-            temp[i] = items[(prev + 1) % capacity];
-            prev++;
-            i++;
+        for (int i = 0; i < size; i++) {
+            temp[i] = this.get(i);
         }
         isFull = false;
         prev = cap - 1;
@@ -48,16 +45,19 @@ public class ArrayDeque<T> {
             resize(capacity * 2);
         }
         if (prev == next) {
-            isFull = false;
+            isFull = true;
         }
         size++;
         items[next] = i;
-        next = (next + 1) % capacity;
+        next++;
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         size--;
-        prev++;
+        prev = (prev + 1) % capacity;
         T first = items[prev];
         items[prev] = null;
         if (size / capacity < 0.2) {
@@ -67,8 +67,11 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         size--;
-        next--;
+        next = (next - 1) % capacity;
         T last = items[next];
         items[next] = null;
         if (size / capacity < 0.2) {
@@ -93,6 +96,9 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return items[(prev + index) % capacity];
+        if (isEmpty() || index >= size || index < 0) {
+            return null;
+        }
+        return items[(prev + 1 + index) % capacity];
     }
 }

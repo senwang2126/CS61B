@@ -91,9 +91,27 @@ public class ArrayDequeTest {
         printTestStatus(passed);
     }
 
+    public static void getTest() {
+        System.out.println("Running get test.");
+        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+
+        lld1.addFirst("front");
+        lld1.addLast("middle");
+        lld1.addLast("last");
+        System.out.println(lld1.get(0));
+        System.out.println(lld1.get(1));
+        System.out.println(lld1.get(2));
+        lld1.removeFirst();
+        System.out.println(lld1.get(0));
+        System.out.println(lld1.get(1));
+
+        lld1.printDeque();
+    }
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
+        getTest();
     }
 }
