@@ -92,20 +92,16 @@ public class ArrayDequeTest {
     }
 
     public static void getTest() {
-        System.out.println("Running get test.");
-        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.isEmpty();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld1.removeLast();
+        lld1.addLast(5);
+        lld1.addLast(6);
+        lld1.removeLast();
 
-        lld1.addFirst("front");
-        lld1.addLast("middle");
-        lld1.addLast("last");
-        System.out.println(lld1.get(0));
-        System.out.println(lld1.get(1));
-        System.out.println(lld1.get(2));
-        lld1.removeFirst();
-        System.out.println(lld1.get(0));
-        System.out.println(lld1.get(1));
-
-        lld1.printDeque();
     }
 
     public static void main(String[] args) {
