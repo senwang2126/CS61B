@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
         }
         size++;
         items[prev] = i;
-        prev = Math.floorMod((prev - 1), capacity);
+        prev = (prev - 1 + capacity) % capacity;
     }
 
     public void addLast(T i) {
@@ -40,7 +40,7 @@ public class ArrayDeque<T> {
         }
         size++;
         items[next] = i;
-        next = Math.floorMod((next + 1), capacity);
+        next = (next + 1 + capacity) % capacity;
     }
 
     public T removeFirst() {
@@ -48,7 +48,7 @@ public class ArrayDeque<T> {
             return null;
         }
         size--;
-        prev = Math.floorMod((prev + 1), capacity);
+        prev = (prev + 1 + capacity) % capacity;
         T first = items[prev];
         items[prev] = null;
         if ((double) size / capacity < 0.2) {
@@ -62,7 +62,7 @@ public class ArrayDeque<T> {
             return null;
         }
         size--;
-        next = Math.floorMod((next - 1), capacity);
+        next = (next - 1 + capacity) % capacity;
         T last = items[next];
         items[next] = null;
         if ((double) size / capacity < 0.2) {
@@ -94,6 +94,6 @@ public class ArrayDeque<T> {
         if (isEmpty() || index >= size || index < 0) {
             return null;
         }
-        return items[Math.floorMod(prev + 1 + index, capacity)];
+        return items[(prev + 1 + index + capacity) % capacity];
     }
 }
