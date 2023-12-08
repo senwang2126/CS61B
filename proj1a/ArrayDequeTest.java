@@ -94,13 +94,12 @@ public class ArrayDequeTest {
     public static void getTest() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         lld1.isEmpty();
+        lld1.addLast(0);
         lld1.addLast(1);
-        lld1.addLast(2);
-        lld1.addLast(3);
         lld1.removeLast();
-        lld1.addLast(5);
-        lld1.addLast(6);
         lld1.removeLast();
+        lld1.addLast(4);
+        lld1.printDeque();
 
     }
 
